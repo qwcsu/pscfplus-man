@@ -925,7 +925,7 @@ including its data structure and meaning:
 
 An advantage of using a JSON file to store the data of free-energy density and its components is that the data can be accessed like elements of an array, which
 can make the data analysis quite convenient. For example, one can write the following Python script to read a sequence of JSON files and extract the internal-energy 
-contribution to the free-energy density due to the Flory-Huggins-type repulsion for varying <font face="Times New Roman">χ</font><f>$N$</f>:
+contribution to the free-energy density due to the Flory-Huggins-type repulsion for varying <font face="Times New Roman">χ*N*</font>:
 
 ```     python 
 import json
