@@ -790,6 +790,10 @@ including its data structure and meaning:
     			},
     			"Total" : 3.429325860476176
     		},
+        "N/kappa" : 
+    		[
+          “Imcompressible”
+    		],
     		"Phi" : 
     		[
     			[
@@ -807,6 +811,10 @@ including its data structure and meaning:
     				1,
     				1
     			]
+    		],
+        "Sigma" : 
+    		[
+          0.0
     		],
     		"Unitcell" : 
     		[
@@ -917,7 +925,7 @@ including its data structure and meaning:
 
 An advantage of using a JSON file to store the data of free-energy density and its components is that the data can be accessed like elements of an array, which
 can make the data analysis quite convenient. For example, one can write the following Python script to read a sequence of JSON files and extract the internal-energy 
-contribution to the free-energy density due to the Flory-Huggins-type repulsion for varying <font face="Times New Roman">χ</font>$N$:
+contribution to the free-energy density due to the Flory-Huggins-type repulsion for varying <font face="Times New Roman">χ</font><f>$N$</f>:
 
 ```     python 
 import json
