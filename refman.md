@@ -366,8 +366,8 @@ The sub-blocks and required parameters (represented by `...` above) are explaine
 
 - **Interaction:** Description of non-bonded interactions in the system.
   
-  - **chiN:** The (generalized) Flory-Huggins <font face="Times New Roman">χ</font> parameter for each pair of different segment types, multiplied by the total number of segments (or chain length) $N$ of a specified molecular component, in a separate line. The first two parameters in each line are the segment-type indices, and the third one is the corresponding value of <font face="Times New Roman">χ</font>$N$. By default, the value between segments of the same type is 0, and thus not needed.
-  - **N/kappa:** The value of $N$/<font face="Times New Roman">κ</font>, where <font face="Times New Roman">κ</font> is the generalized Helfand compressibility parameter (see [Models.pdf](https://github.com/qwcsu/pscfplus/blob/master/doc/notes/Models.pdf) for details). This line is used only for compressible systems and omitted for incompressible systems.
+  - **chiN:** The (generalized) Flory-Huggins <font face="Times New Roman">χ</font> parameter for each pair of different segment types, multiplied by the total number of segments (or chain length) *N* of a specified molecular component, in a separate line. The first two parameters in each line are the segment-type indices, and the third one is the corresponding value of <font face="Times New Roman">χ*N*</font>. By default, the value between segments of the same type is 0, and thus not needed.
+  - **N/kappa:** The value of <font face="Times New Roman">*N*/κ</font>, where <font face="Times New Roman">κ</font> is the generalized Helfand compressibility parameter (see [Models.pdf](https://github.com/qwcsu/pscfplus/blob/master/doc/notes/Models.pdf) for details). This line is used only for compressible systems and omitted for incompressible systems.
   - **sigma**: Interaction range of the non-bonded potential in units of $R_{g}\equiv\sqrt{N/6}b$, which is 0 for the Dirac δ-function interaction.
 
 - **unitCell:** The first parameter in this line is the lattice system of the unit cell,  
@@ -627,7 +627,7 @@ All commands are put in a pair of square brackets, and they are divided into dif
     `"Variable"` specifies the paramter whose value is varied along the path; this so far can be either `"chiN"` as 
     in the above example (see the `Interaction` sub-block in [Sec. 3.2](#ParameterFiles)), or `"b"`, the effective bond length of a segment type (see the `Mixture` sub-block in [Sec. 3.2](#ParameterFiles)). If the varying parameter is `"chiN"`, user needs to specify the two segment types as shown in the above example. If it is `"b"`, user needs to specify the corresponding segment type (*e.g.*, `["b", 0]`), which cannot be that having $b=1$. `"InitialValue"` and `"FinalValue"` give the starting and ending parameter values of the path, respectively. `"InitialStep"`, `"SmallestStep"`, and `"LargestStep"` specifies the initial, smallest and largest absolute values of the stepsize, respectively, used for varing the parameter along the path. `"StepScale"` specifies the scaling factor used to vary the stepsize. `"OutputDirectory"` specifies the directory of the output file for the system free energy and its components along the path. `"IntermediateOuput"` is needed when user wants to output field files during `ACAP`. The first block in `"IntermediateOuput"` specifies the parameter values at which the fields are output along the path (the order of these values does not matter, which means `[1.1, 1.2, 1.3]` and `[1.2, 1.3, 1.1]` result in the same intermediate output files). Each of the following blocks specifies the type of the field, its format, and the directory of the output files via `"Field"`, `"Format"`, and `"IntermediateDirectory"`, respectively.
 
-    In addition, users can change all <font face="Times New Roman">χ</font>$N$-values for each step using `"chiN_all"` for `"Variable"` as in the following example; note that all <font face="Times New Roman">χ</font>$N$-values are varied with the same initial and final points and adaptive steps in this case. 
+    In addition, users can change all <font face="Times New Roman">χ*N*</font>-values for each step using `"chiN_all"` for `"Variable"` as in the following example; note that all <font face="Times New Roman">χ*N*</font>-values are varied with the same initial and final points and adaptive steps in this case. 
   
         {
             "ACAP":{
@@ -706,7 +706,7 @@ All commands are put in a pair of square brackets, and they are divided into dif
             }
         ]
 
-    Here, the initial guess of each phase is read first by the two `"FieldIO"` blocks; different from the above single-phase calculation, `"PhaseId"` is needed in each `"FieldIO"` block, which takes the value of 1 or 2 in accordance to the command-line arguments of `-d`, `D1` and `D2`, respectively (see [Invoking an Executable](#InvokinganExecutable)). In the `"PhaseBoundaryPoints"` block, `"epsilon"` specifies the convergence criterion, which is the absolute difference in the dimensionless Helmholtz free-energy density between the two phases; the next line specifies that the calculation is performed at the constant value for the effective bond length (*i.e.*, `"b"`) of segment type `1`, which is 1.0; in this case, the calculation solves for the <font face="Times New Roman">χ</font>$N$-value between segment types `0` and `1`, which falls in the interval of `[19.1, 19.3]` as shown in third line. Note that this interval is required by the Ridders' method used for the phase-boundary calculation.
+    Here, the initial guess of each phase is read first by the two `"FieldIO"` blocks; different from the above single-phase calculation, `"PhaseId"` is needed in each `"FieldIO"` block, which takes the value of 1 or 2 in accordance to the command-line arguments of `-d`, `D1` and `D2`, respectively (see [Invoking an Executable](#InvokinganExecutable)). In the `"PhaseBoundaryPoints"` block, `"epsilon"` specifies the convergence criterion, which is the absolute difference in the dimensionless Helmholtz free-energy density between the two phases; the next line specifies that the calculation is performed at the constant value for the effective bond length (*i.e.*, `"b"`) of segment type `1`, which is 1.0; in this case, the calculation solves for the <font face="Times New Roman">χ*N*</font>-value between segment types `0` and `1`, which falls in the interval of `[19.1, 19.3]` as shown in third line. Note that this interval is required by the Ridders' method used for the phase-boundary calculation.
 
 ### <a id="34"></a>3.4. Free-Energy Density and Its Components
 
@@ -835,7 +835,7 @@ including its data structure and meaning:
       ]
 
   The top level is an array (`[]`) containing a series of objects (`{}`), where 
-  each object contains the Helmholtz free-energy (in a canonical ensemble) or the grand potential (in a grand-canonical ensemble) per chain of length $N$ and its components. For 
+  each object contains the Helmholtz free-energy (in a canonical ensemble) or the grand potential (in a grand-canonical ensemble) per chain of length <font face="Times New Roman">*N*</font> and its components. For 
   SCF calculation of a single phase, the array contains only one objet; for ACAP,
   the number of objects depends on the number of steps along the path.
 
@@ -847,11 +847,11 @@ including its data structure and meaning:
   of each segment type in a separate array, where `m_k` denotes the index of segment type and 
   `b_k` denotes the corresponding effective bond length.
 
-  `"ChiN" : [ ..., [m_A, m_B, chiN_AB], ... ]`  contains the (generalized) Flory-Huggins <font face="Times New Roman">χ</font> 
-  parameter for each pair of different segment types, multiplied by $N$, in a separate array. The first two parameters in each line are the segment-type indices, and the third one is 
-  the corresponding value of <font face="Times New Roman">χ</font>$N$. 
+  `"ChiN" : [ ..., [m_A, m_B, chiN_AB], ... ]`  contains the (generalized) Flory-Huggins <font face="Times New Roman">χ*N*</font> 
+  parameter for each pair of different segment types, multiplied by <font face="Times New Roman">*N*</font>, in a separate array. The first two parameters in each line are the segment-type indices, and the third one is 
+  the corresponding value of <font face="Times New Roman">χ*N*</font>. 
  
-  `"N/kappa" :  value` contains the value of $N$/<font face="Times New Roman">κ</font>, where <font face="Times New Roman">κ</font> 
+  `"N/kappa" :  value` contains the value of <font face="Times New Roman">κ</font>, where <font face="Times New Roman">*N*/κ</font> 
   is the generalized Helfand compressibility parameter, This component is used only for compressible systems and omitted for incompressible systems.
 
   `"sigma" :  value` contains the value of the interaction range of the non-bonded potential in units of $R_{g}\equiv\sqrt{N/6}b$, which is 0 for the Dirac δ-function interaction.
